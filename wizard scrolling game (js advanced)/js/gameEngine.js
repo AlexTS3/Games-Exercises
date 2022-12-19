@@ -5,15 +5,22 @@ function start(state, game) {
 
 function gameLoop(state, game) {
     let { wizard } = state;
-    let {wizardElement} = game;
+    let { wizardElement } = game;
     console.log("gameLoop");
 
     modifyWizardPos(state, game);
 
+    if(state.keys.Space){
+        game.wizardElement.style.backgroundImage = "url('./resources/wizard-fire.png')";
+        game.createFireball(wizard,state.fireball);
+    } else {
+        game.wizardElement.style.backgroundImage = "url('./resources/wizard.png')";
+    }
+
 
     //render wizard
     wizardElement.style.top = wizard.posY + 'px';
-    wizardElement.style.left = wizard.posX + 'px' 
+    wizardElement.style.left = wizard.posX + 'px'
     window.requestAnimationFrame(gameLoop.bind(null, state, game));
 }
 
@@ -21,19 +28,19 @@ function modifyWizardPos(state, game) {
     let { wizard } = state;
 
     if (state.keys.ArrowUp) {
-        wizard.posY = wizard.posY - wizard.speed;
+        wizard.posY = Math.max(wizard.posY - wizard.speed, 0);
     }
 
     if (state.keys.ArrowDown) {
-        wizard.posY = wizard.posY + wizard.speed;
+        wizard.posY = Math.min(wizard.posY + wizard.speed, document.body.clientHeight - wizard.height);
     }
 
     if (state.keys.ArrowLeft) {
-        wizard.posX = wizard.posX - wizard.speed;
+        wizard.posX = Math.max(wizard.posX - wizard.speed, 0);
     }
 
     if (state.keys.ArrowRight) {
-        wizard.posX = wizard.posX + wizard.speed;
+        wizard.posX = Math.min(wizard.posX + wizard.speed, document.body.clientWidth - wizard.width);
     }
-    
+
 }
