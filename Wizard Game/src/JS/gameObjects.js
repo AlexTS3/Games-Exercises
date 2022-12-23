@@ -7,6 +7,8 @@ function initGameObjects() {
     return {
         startScreen,
         gameScreen,
+        scoreScreen,
+        
         createWizard(initialState) {
             let wizardElement = document.createElement('div');
             wizardElement.classList.add('wizard');
