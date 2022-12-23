@@ -2,6 +2,7 @@
 function initGameObjects() {
     const startScreen = document.querySelector('.start-screen');
     const gameScreen = document.querySelector('.game-screen');
+    const scoreScreen =document.querySelector('.score')
 
     return {
         startScreen,

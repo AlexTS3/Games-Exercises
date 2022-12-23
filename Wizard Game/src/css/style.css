@@ -22,7 +22,7 @@ body {
     transform: translate(-50%);
 }
 
-.start-screen:hover{
+.start-screen:hover {
     background-color: red;
     cursor: pointer;
 }
@@ -42,7 +42,7 @@ body {
      */
 }
 
-.bug{
+.bug {
     position: absolute;
     background-image: url('/src/Images/bug.png');
     background-size: cover;
@@ -54,6 +54,12 @@ body {
     background-size: cover;
 }
 
-.hidden{
+.hidden {
     display: none;
+}
+
+.score{
+    position: absolute;
+    top: 10px;
+    left: 200px;
 }
