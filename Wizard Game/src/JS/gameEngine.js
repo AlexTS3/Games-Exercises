@@ -8,12 +8,18 @@ function gameLoop(state, game, timestamp) {
     const { wizard } = state;
     const { wizardElement } = game;
 
+   
+
     modifyWizardPosition(state, game);
 
+    //Create Fireball
     if (state.keys.Space) {
         game.wizardElement.style.backgroundImage = 'url("/src/Images/wizard-fire.png")';
 
-        game.createFireball(wizard, state.fireball);
+        if (timestamp > state.fireball.nextSpawnTimestamp) {
+            game.createFireball(wizard, state.fireball);
+            state.fireball.nextSpawnTimestamp = timestamp + state.fireball.fireRate;
+        }
     } else {
         game.wizardElement.style.backgroundImage = 'url("/src/Images/wizard.png")'
     }
@@ -29,6 +35,10 @@ function gameLoop(state, game, timestamp) {
     bugElements.forEach(bug => {
         let posX = parseInt(bug.style.left);
 
+        //Detect collision with wizard
+        if(detectCollision(wizardElement, bug)){
+            state.gameOver = true;
+        }
         if (posX > 0) {
             bug.style.left = posX - state.bugStats.speed + 'px';
         } else {
@@ -43,7 +53,7 @@ function gameLoop(state, game, timestamp) {
 
         //Detect collision
         bugElements.forEach(bug => {
-            if (detectCollision(bug, fireball)){
+            if (detectCollision(bug, fireball)) {
                 bug.remove();
                 fireball.remove();
             }
@@ -62,8 +72,11 @@ function gameLoop(state, game, timestamp) {
     wizardElement.style.top = wizard.posY + 'px';
 
 
-
-    window.requestAnimationFrame(gameLoop.bind(null, state, game));
+    if(state.gameOver) {
+        alert('Game Over')
+    } else {
+        window.requestAnimationFrame(gameLoop.bind(null, state, game));
+    }
 }
 
 function modifyWizardPosition(state, game) {
