@@ -1,4 +1,4 @@
-function initState(){
+function initState() {
     let startX = Math.floor(Math.random() * 1000);
     let startY = Math.floor(Math.random() * 500);
 
@@ -18,6 +18,11 @@ function initState(){
             nextSpawnTimestamp: 0,
             maxSpawnInterval: 1500,
             speed: 8
+        },
+        fireball: {
+            width: 20,
+            height: 20,
+            speed: 12
         },
         keys: {
             KeyA: false,
