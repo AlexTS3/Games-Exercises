@@ -41,6 +41,12 @@ body {
      */
 }
 
+.bug{
+    position: absolute;
+    background-image: url('/src/Images/bug.png');
+    background-size: cover;
+}
+
 .hidden{
     display: none;
 }
