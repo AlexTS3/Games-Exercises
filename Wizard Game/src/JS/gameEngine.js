@@ -10,15 +10,34 @@ function gameLoop(state, game, timestamp) {
 
     modifyWizardPosition(state, game);
 
+    if(state.keys.Space){
+        game.wizardElement.style.backgroundImage = 'url("/src/Images/wizard-fire.png")'
+    } else {
+        game.wizardElement.style.backgroundImage = 'url("/src/Images/wizard.png")'
+    }
+
     //Spawn bugs
-    if(timestamp > state.bugStats.nextSpawnTimestamp){
+    if (timestamp > state.bugStats.nextSpawnTimestamp) {
         game.createBug(state.bugStats);
         state.bugStats.nextSpawnTimestamp = timestamp + Math.random() * state.bugStats.maxSpawnInterval
     }
 
+    //Render bugs
+    document.querySelectorAll('.bug').forEach(bug => {
+        let posX = parseInt(bug.style.left);
+
+        if(posX > 0){
+            bug.style.left = posX - state.bugStats.speed + 'px';
+        } else {
+            bug.remove();
+        }
+
+    })
+
     // Render
     wizardElement.style.left = wizard.posX + 'px';
     wizardElement.style.top = wizard.posY + 'px';
+
 
 
     window.requestAnimationFrame(gameLoop.bind(null, state, game));
